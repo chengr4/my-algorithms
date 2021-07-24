@@ -1,2 +1,3 @@
-# my-algorithm
-My algorithm collections
+# My Algorithms
+
+My algorithms collections
