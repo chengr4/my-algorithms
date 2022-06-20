@@ -17,6 +17,12 @@
 
 - 若 pivot 為 max, min => worse case O(n^2)
 
+## Bucket Sort
+
+- Put elements into buckets (a range)
+- Go though each of buckets and put everything in order
+- 
+
 ## References
 
-1. 
+1. [Bucket Sort](https://youtu.be/ELrhrrCjDOA)
