@@ -2,7 +2,7 @@
 
 My algorithms collections
 
--[Sorts](./sorts/)
+- [Sorts](./sorts/)
 - [Dynamic Programming](./dynamic-programming/)
 
 ## ToRead List
