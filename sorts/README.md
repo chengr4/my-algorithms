@@ -13,7 +13,15 @@
 > Recusive 深度大於 log(n) 改用 Heap Sort =>
 > 資料小於20筆改用 Insertion Sort
 
-## Quick sort
+## Merge Sort
+
+Time complexity:
+
+```math
+ T(n) = 2T(n/2) + n
+```
+
+## Quick Sort
 
 - 若 pivot 為 max, min => worse case O(n^2)
 
