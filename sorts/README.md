@@ -17,9 +17,7 @@
 
 Time complexity:
 
-```math
- T(n) = 2T(n/2) + n
-```
+`$$ T(n) = 2T(n/2) + n $$`
 
 ## Quick Sort
 
