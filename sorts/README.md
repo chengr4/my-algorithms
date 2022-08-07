@@ -17,7 +17,13 @@
 
 Time complexity:
 
-`$$ T(n) = 2T(n/2) + n $$`
+if `x >= 2`
+
+`$$ T(n) = 2T(n/2) + O(n) $$`
+
+`$$ =>  O(nlogn) $$`
+
+> Find the proof on YT if forgetting how to proof
 
 ## Quick Sort
 
