@@ -1,5 +1,14 @@
 # Sorts
 
+```mermaid
+stateDiagram-v2
+  state if_state <<choice>>
+    [*] --> IsLimitN
+    IsLimitN --> if_state
+    if_state --> BucketSort: if n is limit (eg only 1, 2, 3)
+    if_state --> others : if n is not limit
+```
+
 ## Features
 
 1. Quick sort 在大資料時，排序最快 (Quick Sort > Merge Sort > Heap Sort)
