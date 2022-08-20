@@ -47,3 +47,4 @@ if `x >= 2`
 ## References
 
 1. [Bucket Sort](https://youtu.be/ELrhrrCjDOA)
+2. [CS Dojo; A Complete Overview of Quicksort (Data Structures & Algorithms #11) (2020.08)](https://youtu.be/0SkOjNaO1XY)
