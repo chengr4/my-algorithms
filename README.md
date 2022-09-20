@@ -4,6 +4,7 @@ My algorithms collections
 
 - [Sorts](./sorts/)
 - [Dynamic Programming](./dynamic-programming/)
+- [Binary Search](./binary-search/)
 
 ## ToRead List
 
