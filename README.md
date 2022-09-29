@@ -6,6 +6,7 @@ My algorithms collections
 - [Dynamic Programming](./dynamic-programming/)
 - [Binary Search](./binary-search/)
 - [Greedy](./greedy/)
+- [Graph](./graph/)
 
 ## ToRead List
 
