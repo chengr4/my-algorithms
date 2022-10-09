@@ -7,6 +7,7 @@ My algorithms collections
 - [Binary Search](./binary-search/)
 - [Greedy](./greedy/)
 - [Graph](./graph/)
+- [Other](./others/)
 
 ## ToRead List
 
