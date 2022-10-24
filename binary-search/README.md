@@ -4,6 +4,28 @@
 - linear search O(n) => better solution O(log(n))
 - two pointers
  
+## Steps
+
+1. Find middle index
+2. move left pointer to M + 1 or right pointer to M - 1
+3. recursive 1-2
+
+eg
+
+```javascript
+let l = 0;
+let r = nums.length - 1;
+while (l <= r) {
+  currIndex = Math.trunc((r + l) / 2);
+  if (nums[currIndex] === target) {
+      break;
+    } else if (nums[currIndex] < target) {
+      l = currIndex + 1;
+    } else {
+      r = currIndex - 1;
+    }
+  }
+```
 
 ## References
 
