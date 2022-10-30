@@ -2,7 +2,7 @@
 
 ## To Data Structure
 
-https://github.com/chengr4/my-data-structures/tree/main/graph
+[My Data Structure - Graph](https://github.com/chengr4/my-data-structures/tree/main/graph)
 
 ## Union Find
 
