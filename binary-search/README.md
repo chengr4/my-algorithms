@@ -13,6 +13,7 @@
 eg
 
 ```javascript
+// javascript
 let l = 0;
 let r = nums.length - 1;
 while (l <= r) {
