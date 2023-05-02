@@ -10,7 +10,7 @@
 2. move left pointer to M + 1 or right pointer to M - 1
 3. recursive 1-2
 
-eg
+Eg:
 
 ```javascript
 // javascript
@@ -26,6 +26,21 @@ while (l <= r) {
       r = currIndex - 1;
     }
   }
+```
+
+```golang
+l := 0
+r := len(nums) - 1
+for l <= r {
+ mid := (l + r) / 2
+ if target > nums[mid] {
+			l = mid + 1
+		} else if target < nums[mid] {
+			r = mid - 1
+		} else {
+			return true
+		}
+}
 ```
 
 ## References
