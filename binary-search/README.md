@@ -29,6 +29,7 @@ while (l <= r) {
 ```
 
 ```golang
+// golang
 l := 0
 r := len(nums) - 1
 for l <= r {
