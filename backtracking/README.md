@@ -24,17 +24,17 @@ function backtracking(currIndex) {
 ```golang
 // golang
 var dfs func(currIndex int)
-	dfs = func(currIndex int) {
-		if currIndex == len(inputArray) {
-      // copy to result
-			return
-		}
-
-		// add
-		currArr = append(currArr, inputArray[currIndex])
-		dfs(currIndex + 1)
-		currArr = currArr[:len(currArr)-1]
-		// not add
-		dfs(currIndex + 1)
+dfs = func(currIndex int)	{
+	if currIndex == len(inputArray) {
+		// copy to result
+		return
 	}
+	
+	// add
+	currArr = append(currArr, inputArray[currIndex])
+	dfs(currIndex + 1)
+	currArr = currArr[:len(currArr)-1]
+	// not add
+	dfs(currIndex + 1)
+}
 ```
