@@ -42,7 +42,10 @@ if `x >= 2`
 
 - Put elements into buckets (a range)
 - Go though each of buckets and put everything in order
-- 
+
+## Topology Sort
+
+> See Leetcode 269
 
 ## References
 
