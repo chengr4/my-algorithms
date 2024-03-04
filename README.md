@@ -8,6 +8,7 @@ My algorithms collections
 - [Greedy](./greedy/)
 - [Graph](./graph/)
 - [Backtracking](./backtracking/)
+- [LRU](lru.md)
 - [Other](./others/)
 
 ## Terms
