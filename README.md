@@ -9,7 +9,7 @@ My algorithms collections
 - [Graph](./graph/)
 - [Backtracking](./backtracking/)
 - [LRU](lru.md)
-- [Other](./others/)
+- [Floyd's (Tortoise & Hare)](floyd.md)
 
 ## Terms
 

@@ -1,11 +1,7 @@
-# Others
-
-## Floyd's (Tortoise & Hare)
-
+# Floyd's (Tortoise & Hare)
 
 ```javascript
 // In JS
-
 var hasCycle = function (head) {
   let slow = head;
   let fast = head;
@@ -19,8 +15,7 @@ var hasCycle = function (head) {
 };
 ```
 
+## Applications
 
-### Applications
-
-- Check whether a linked list a cycle has
-- Find the duplicate number in array (leetcode 287)
+- Check whether a linked list has a cycle.
+- Find the duplicate number in array (Eg. leetcode 287)
