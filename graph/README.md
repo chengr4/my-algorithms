@@ -19,16 +19,16 @@ Eg.
 | A              | 0                                   ||
 | B              | 2                                   | C               |
 
-## The Shortest Path
+## Breadth First Search (BFS)
+
+JavaScript:
 
 ```javascript
-// js
 const visited = new Set();
 // need lib or implementation
 const queue = new Queue();
 const direction = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
-// BFS
 while (!queue.isEmpty()) {
   const [currRow, currCol] = queue.dequeue();
 
@@ -45,6 +45,49 @@ while (!queue.isEmpty()) {
       queue.enqueue([newRow, newCol]);
     }
   }
+}
+```
+
+C:
+
+```c
+/* Node for the adjacency list */
+struct node {
+    int vertex;
+    struct node* next;
+};
+
+
+/* Graph struct including Adjacency List  */
+struct Graph {
+    int numVertices;         // number of vrtices in the graph
+    struct node** adjLists;  // list of adjacent vertices for each vertex
+    int* visited;            //  1 == vertex has been visited, initialized to 0
+};
+
+void bfs(struct Graph* graph, int startVertex) {
+	struct queue* queue = queue_create();
+
+	graph->visited[startVertex] = 1;
+	queue_enqueue(queue, graph->adjLists[0]);
+
+	while (!queue_isempty(queue)) {
+		struct node* currentVertex = queue_dequeue(queue);
+
+		struct node* temp = currentVertex;
+
+		while (temp != NULL) {
+			int adjVertex = temp->vertex;
+
+			if (graph->visited[adjVertex] == 0) {
+				graph->visited[adjVertex] = 1;
+				
+				// Add the adjacent vertex to the queue
+				queue_enqueue(queue, graph->adjLists[adjVertex]);
+			}
+			temp = temp->next;
+		}
+	}
 }
 ```
 
