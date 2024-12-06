@@ -4,7 +4,11 @@
 
 [My Data Structure - Graph](https://github.com/chengr4/my-data-structures/tree/main/graph)
 
-## Dijkstra’s Algorithm
+## Shortest Path
+
+
+
+## Dijkstra's Algorithm
 
 - Edsger W. Dijkstra 1959
 - Edge 沒有負值時使用
@@ -20,6 +24,8 @@ Eg.
 | B              | 2                                   | C               |
 
 ## Breadth First Search (BFS)
+
+- Shortest path without weight
 
 JavaScript:
 
