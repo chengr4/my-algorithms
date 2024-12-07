@@ -15,4 +15,4 @@ pq.o: pq.c pq.h
 	$(CC) -c pq.c
 
 clean:
-	rm -f *.o test_pq dijkstra
+	rm -rf *.o test_pq dijkstra *.dSYM

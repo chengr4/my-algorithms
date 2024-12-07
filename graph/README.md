@@ -97,5 +97,8 @@ void bfs(struct Graph* graph, int startVertex) {
 }
 ```
 
-## Union Find
+## Kruskal's Algorithm
+
+- Use Union Find
+
 
