@@ -2,16 +2,6 @@
 
 My algorithms collections
 
-- [Sorts](./sorts/)
-- [Dynamic Programming](./dynamic-programming/)
-- [Binary Search](./binary-search/)
-- [Greedy](./greedy/)
-- [Graph](./graph/)
-- [Backtracking](./backtracking/)
-- [LRU](lru.md)
-- [Scheduling](./scheduling/)
-- [Floyd's (Tortoise & Hare)](floyd.md)
-
 ## Terms
 
 - Stack algorithm: the set of pages in memory for `n` frames is always **a subset** of the set of pages that would be in memory with `n + 1` frames
