@@ -11,6 +11,8 @@
 2. It is repeated many times
 3. We only care about the result rather than the intermediate state
 
+- Sometimes, we can do bi-direction and add the difference to the start and end of the range
+
 ## Classic Problems
 
 - 航班預訂統計
