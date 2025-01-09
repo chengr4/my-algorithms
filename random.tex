@@ -2,7 +2,7 @@
 \usepackage{amsfonts, amssymb, amsmath}
 \usepackage{fullpage}
 \usepackage{parskip} % skip a line instead of indenting
-% \usepackage{graphicx} % for inserting images
+\usepackage{graphicx} % for inserting images
 \usepackage{amsthm}
 \usepackage{xcolor}
 \usepackage{tikz} % for plot
@@ -50,6 +50,36 @@ $$f(n) = o(g(n)) \iff \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0$$
 
 \textbf{Big-$\Omega$ Definition}: It is said $f(n) = \Omega(g(n)) \iff$ there exists a constant $c > 0$ and $n_0 > 0$ such that
 $$f(n) \geq c \cdot g(n) \text{ for all } n \geq n_0$$
+
+\subsubsection*{Caveats about constants}
+
+For $\log_4(n)$, is 4 ignorable? No, it matters
+
+\Remark{$log_a(x) = log_a blog_b(x)$}
+
+\includegraphics[width=\textwidth]{./images/common_efficiency_class.png}
+
+\subsection*{Merge Sort}
+
+\[T(n) = 2T(\frac{n}{2}) + 2n + c\]
+
+\Remark{$2n$: compare and copy n elements $= 2n$}
+
+\textbf{Proof}
+
+\[T(n) = 2T(\frac{n}{2}) + 2n + c\]
+\[\Rightarrow T(\frac{n}{2}) = 2T(\frac{n}{4}) + (n + c)\]
+\[\Rightarrow T(\frac{n}{4}) = 2T(\frac{n}{8}) + (\frac{n}{2} + c)\] Bring in $T(\frac{n}{2})$
+\[\Rightarrow T(n) = 2\{2T(\frac{n}{4}) + (n + c)\} + 2n + c\]
+\[= 2^2T(\frac{n}{2^2}) + 2 \cdot 2n + c\] Bring in $T(\frac{n}{4})$
+\[= 2^2\{2T(\frac{n}{8}) + (\frac{n}{2} + c)\} + 2 \cdot 2n + c\]
+\[= 2^3T(\frac{n}{2^3}) + 3 \cdot 2n + c\]
+\[\Rightarrow T(n)= 2^kT(\frac{n}{2^k}) + k \cdot 2n + c\]
+
+Since $T(1) = 1$, $\frac{n}{2^k} = 1 \Rightarrow k = \log_2(n)$
+
+\[\Rightarrow T(n) = n \cdot 1 + \log_2(n) \cdot 2n + c\]
+\[\Rightarrow T(n) = O(nlogn) \]
 
 
 \end{document}
