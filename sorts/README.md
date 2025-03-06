@@ -22,6 +22,8 @@ stateDiagram-v2
 > Recusive 深度大於 log(n) 改用 Heap Sort =>
 > 資料小於20筆改用 Insertion Sort
 
+## 
+
 ## Merge Sort
 
 Time complexity:

@@ -7,17 +7,12 @@
 \usepackage{xcolor}
 \usepackage{tikz} % for plot
 
-\newtheorem*{rem}{Remark}
-
 \title{Algorithms}
 \author{R4 Cheng}
 \date{\today}
 
-\newcommand{\Remark}[1]{
-  \begin{rem}
-    \color{cyan}
-    #1
-  \end{rem}
+\newcommand{\remark}[1]{
+    $>$ {\color{blue} #1}
 }
 
 \begin{document}
@@ -26,6 +21,8 @@
 \textbf{Def.} Introduction of precise, umambiguous, and correct procedures for solving general problems
 
 We care how many clicks in debug mode
+
+\section*{Runtime Analysis}
 
 Runtime is expressed by counting the number of steps, as funtion of \textbf{the size of the input}
 
@@ -43,27 +40,44 @@ $f(n)$: the runtime of an algorithm for input size $n$
 $g(n)$: a simplified function without constants, lower order terms, e.g. $n^2$, $n \log n$
 
 \textbf{Big-O Definition}: It is said $f(n) = O(g(n)) \iff$ there exists a constant $c > 0$ and $n_0 > 0$ such that
-$$f(n) \leq c \cdot g(n) \text{ for all } n \geq n_0$$
+
+\[f(n) \leq c \cdot g(n) \text{ for all } n \geq n_0\]
 
 \textbf{Little-o Definition}:
-$$f(n) = o(g(n)) \iff \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0$$
+
+\[f(n) = o(g(n)) \iff \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0\]
+
+E.g. $f(n) = 3900n + 57800$
+
+$f(n) = o(n^2)$? T, because $\lim_{n \to \infty} \frac{3900n + 57800}{n^2} = 0$
+
+$f(n) = o(n)$? F, because $\lim_{n \to \infty} \frac{3900n + 57800}{n} = 3900$
 
 \textbf{Big-$\Omega$ Definition}: It is said $f(n) = \Omega(g(n)) \iff$ there exists a constant $c > 0$ and $n_0 > 0$ such that
 $$f(n) \geq c \cdot g(n) \text{ for all } n \geq n_0$$
 
-\subsubsection*{Caveats about constants}
+\subsection*{Relation between $O,o,\Omega,\theta$}
+
+\begin{itemize}
+    \item $f = \theta(g) \iff f = O(g),f = \Omega(g)$
+    \item $f = o(g) \Rightarrow f = O(g)$
+    \item $f = O(g) \iff g = \Omega(f)$
+    \item $f = \theta(g) \iff g = O(f)$
+\end{itemize}
+
+\textbf{Caveats about constants}
 
 For $\log_4(n)$, is 4 ignorable? No, it matters
 
-\Remark{$log_a(x) = log_a blog_b(x)$}
+\remark{$log_a(x) = log_a blog_b(x)$}
 
 \includegraphics[width=\textwidth]{./images/common_efficiency_class.png}
 
-\subsection*{Merge Sort}
+\section*{Merge Sort}
 
 \[T(n) = 2T(\frac{n}{2}) + 2n + c\]
 
-\Remark{$2n$: compare and copy n elements $= 2n$}
+\remark{$2n$: compare and copy n elements $= 2n$}
 
 \textbf{Proof}
 
@@ -99,7 +113,33 @@ $\Rightarrow$ the cost of the "combine" step dominates the cost of the "split" s
 
 \textbf{Case 3}: $a > b^d$, or equiv. $d < log_ba, T(n) = O(n^{log_ba})$
 
-\section*{Smart Selection of Pivot}
+\section*{Proof by induction}
+
+\remark{Useful for proving correctness of recursive algorithms}
+
+\section*{Devide and Conquer}
+
+\subsection*{Inversion Counting}
+
+Input: an A comtaining numbers $1,2,\dots,n$ in some arbitrary order
+
+Output: the number of inversions in $A$, i.e. the number of pairs $(i,j)$ of array indices with $i < j$ and $A[i] > A[j]$
+
+It is useful for recommender systems $\Rightarrow$ fewer inversions means better alignment with user preferences
+
+\subsection*{Median}
+
+Input: A list of numbers $S$; an integer $k$
+
+Output: the $k$th smallest element of $S$
+
+\subsubsection{A randomized divide-and-conquer algorithm}
+
+
+\[S_k = \]
+
+
+\subsubsection*{Smart Selection of Pivot}
 
 Break array $A$ into chunks of fives and find the median of each chunk,
 constructing a new array $M$ of medians.
@@ -130,6 +170,8 @@ Select(A, k)
 
 \section*{Dynamic Programming}
 
+The main question in dynamic programming always is, what are the subproblems?
+
 \subsection*{Fibonacci}
 
 \[T(n) = T(n-1) + T(n-2) + c\]
@@ -149,38 +191,40 @@ Select(A, k)
   \item etc.
 \end{itemize}
 
+\subsection*{Longest Increasing Subsequence}
+
+\[L(i) = \text{the length of a longest increasing subsequence ending at position i}\]
+\[L(i) = (\max_{j:a_j < a_i}{L(j)})+1\]
+
 \subsection*{Edit Distance}
 
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-  \hline
-  & E & X & E & C & U & T & I & O & N & \\
-  \hline
-  N & & & & & & & & & & \\
-  \hline
-  O & & & & & & & & & & \\
-  \hline
-  I & & & & & & & & & & \\
-  \hline
-  T & & & & & & & & & & \\
-  \hline
-  N & & & & & & & & & & \\
-  \hline
-  E & & & & & & & & & & \\
-  \hline
-  T & & & & & & & & & & \\
-  \hline
-  N & & & & & & & & & & \\
-  \hline
-  I & & & & & & & & & & \\
-  \hline
-  & & & & & & & & & & \\
-  \hline
-\end{tabular}
+\[D(i, j) = \text{the edit distance between} s_1,s_2,\dots,s_i \text{and} t_1,t_2,\dots,t_j\]
+
+\subsection*{Maximum Subarray}
+
+Because the decision at each index depends only on the previous index,
+it is uncessary to define $L(i, j) = $ the maximum subarray sum from index $i$ to $j$.
+Instead, we can define $L(i) = $ the maximum subarray sum ending at index $i$.
 
 \subsection*{Knapsack}
 
-\subsubsection*{0-1 knapsack problem}
+Q: For max $W$ pounds, there are $n$ items to pick from, of weight $w_1, \dots, w_n$ and dollar value $v_1, \dot, v_n$. 
+What is the most valuable combination of items he can fit into his bag?
 
+E.g., take $W = 10$ and 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c r}
+        \textbf{Item} & \textbf{Weight} & \textbf{Value} \\
+        1 & 6 & \$30 \\
+        2 & 3 & \$14 \\
+        3 & 4 & \$16 \\
+        4 & 2 & \$9 \\
+    \end{tabular}
+\end{table}
+
+\subsubsection*{0-1 knapsack problem}
 
 Intuition: Go greedy
 
@@ -189,33 +233,200 @@ Intuition: Go greedy
   \item Greedily choose the most value/weight item?
 \end{enumerate}
 
-Sadly, both can be found a counterexample.
+Sadly, both can be found a counter example.
 
-Define $V(n, W) = $ the optimal value achievable using item 
-$1,2, \dots, n$ with weight limit $W$
+$K(w, j) =$ maximum value achievable using a knapsack of capacity $w$ and items $1, 2, \dots, j$
+
+We should consider both capacity $w$ and items $j$, where $0 \leq j \leq n$
 
 $\Rightarrow$
 
+The answer we seek is $K(W, n)$
+
 Subproblems:
 
-1. Choose the current item: $V(n - 1, W - W_n) + v_n$ \\
-2. Don't choose the current item: $V(n - 1, W)$
-
+1. Choose the current item: $K(w - w_j, j - 1) + v_j$ \\
+2. Don't choose the current item: $K(w, j - 1)$
 
 \[
 \Rightarrow
-V(n, W) = \max \left\{
+K(w, j) = \max \left\{
 \begin{array}{l}
-    V(n - 1, W - W_n) + v_n \\
-    V(n - 1, W)
+    K(w - w_j, j - 1) + v_j \\
+    K(w, j - 1)
 \end{array}
 \right.
 \]
 
+\begin{center}
+(The first case is invoked only if $w_j \leq w$)
+\end{center}
+
+\remark{we can express $K(w, j)$ in terms of subproblems $K(\cdot, j - 1)$.}
+
+Time complexity: $O(nW)$
+
 \subsubsection*{Unbounded knapsack problem}
 
+\remark{aka. Knapsack with repetition}
+
+\[K(w) = \text{maximum value achievable with a knapsack of capacity } w\]
+
+Express this in terms of smaller subproblems:
+
 \[
-V(W) = \max (V(W - W_n) + v_n) \\
+K(w) = \max_{i : w_i \leq w} \{ K(w - w_i) + v_i \},
 \]
+
+\begin{verbatim}
+    K(0) = 0
+    for w = 1 to W:
+        K(w) = max {K(w - w_i) + vi: w_i <= w}
+    return K(W)
+\end{verbatim}
+
+It is 1D dynamic programming. Each entry can take up to $O(n)$ time to compute, so the overall runtime is $O(nW)$ 
+
+\subsection*{Optimal binary search tree}
+
+Q: what is the time complexity for this q?
+
+TODO: study Longest common subsequence
+
+\subsection*{Longest Common Subsequence}
+
+\section*{Greedy Algorithms}
+
+Greedy template:
+\begin{verbatim}
+Let T be the set of tasks H is the rule determinging the greedy algorithm
+
+A = {}
+While (T is not empty)
+    Select a task t from T by a rule H
+    Add t to A
+    Remove t and all tasks imcompatible with t from T
+\end{verbatim}
+
+\subsection*{Proving the optimality of a greedy algorithm}
+
+\subsubsection*{Greedy stays ahead}
+
+\subsubsection*{Exchange argument}
+
+\subsection*{Scheduling Theory}
+
+\subsubsection{Interval Scheduling}
+
+\begin{verbatim}
+    f()
+\end{verbatim}
+
+Prove:
+
+the \textbf{Earlist-Finish-Time} algorithm is optimal.
+
+We need to show that the solution chosen by greedy is as good as any other solution.
+
+Usually, use the strategy of proof by contradiction
+
+\subsection*{Minimum Spanning Tree}
+
+\remark{aka. every node should be connected to every other node}
+
+We assume the graph is undirected in this class.
+
+\subsubsection{Applications of MST}
+
+\begin{itemize}
+    \item Network design
+    \item Approximations to NP-hard problems like traveling salesman problem
+    \item Clustering in machine learning
+\end{itemize}
+
+\subsubsection{Greedy Template for MST}
+
+\begin{verbatim}
+Init an empty set of edges T
+While T is not yet a spanning tree (|T| <= |V| - 1) 
+    select $e \in E$ to add to $T$ according to a greedy criterion
+Return T
+\end{verbatim}
+
+
+Kruskal's Algorithm: sort edges by weight, add edge to $T$ if it doesn't create a cycle
+
+Prim's Algorithm: start at any node, add the lightest edge to $T$ that connects a node in $T$ to a node not in $T$
+
+\subsubsection{Proof of Correctness}
+
+Use \textbf{cut property}: If we can partition the graph into two parts, 
+and an edge $e$ is the cheapest edge connecting across the two parts, then $e$ must be in the MST.
+
+\subsection*{Huffman coding}
+
+Claim: The optimal code must be a full binary tree
+
+\begin{verbatim}
+// C: the set of tokens, f: the frequency of each token
+Huffman_recur(C, f)
+    Identify the two least frequent tokens x, y in C
+    C' = C - {x, y} + {z} // z = x + y
+    Assign frequency for z: f(z) = f(x) + f(y)
+    T' = Huffman_recur(C', f)
+    Append x and y as children of z in T'
+    return T'
+\end{verbatim}
+
+\subsubsection{Proof Greedy Choice Property}
+
+Let $x,y$ be the two least frequent tokens of $C$.
+There exists an optimal tree in which $x$ and $y$ are siblings.
+
+\(\Rightarrow\) use \textbf{the exchange argument}
+
+\includegraphics[width=\textwidth]{./images/the_exchange_argument.png}
+
+\subsubsection*{Proof Corrrectness of Huffman's Algorithm}
+
+\textbf{Proof by induction}
+
+Base case: $n=2$ and 1 bit for each token
+
+Inductive hypothesis: 
+
+Assume that the algorithm produce an optimal code for all token of $2,\dots,k$
+
+Inductive step:
+
+\section*{Linear Programming}
+
+\begin{itemize}
+    \item least squares
+    \item minimize the maximum absolute deviation \(\max_{1\leq i \leq n}{\mid y_i - (ax_i+b) \mid}\)
+\end{itemize}
+
+\begin{verbatim}
+min -x_1 - x_2
+1. 4x_1 - x_2 + s_1 = 8
+2. 2x_1 + x_2 + s_2 = 10
+3. 5x_1 - 2x_2 - s_3 = -2
+4. x_1, x_2, s_1, s_2, s_3 >= 0
+\end{verbatim}
+
+\subsection*{Problem: Maximum Flow}
+
+target: \(\max{f_{sa} + f_{sb} +f_{sc}} = \max{f_{dt} + f_{et}}\)
+
+\section*{Reduction}
+
+\subsection{Satisfiability}
+
+Literal: $x_i$ or $\neg x_i$
+
+Clause: A disjunction of clauses $c-j = x_1 \lor x_2 \lor \neg x_3$
+
+CNF $\phi$
+
 
 \end{document}
