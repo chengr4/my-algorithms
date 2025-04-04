@@ -12,7 +12,9 @@ stateDiagram-v2
 ## Features
 
 1. Quick sort 在大資料時，排序最快 (Quick Sort > Merge Sort > Heap Sort)
-> 執行時還必須考量到 Compare、Swap、Recursion 的次數
+
+    > 執行時還必須考量到 Compare、Swap、Recursion 的次數
+
 2. 小資料時 Insertion Sort 最快 (Insertion Sort > Quick Sort > Merge Sort ~ Heap Sort)
 3. Quick sort 為不穩定排序
 4. Merge sort 需要額外的 memory O(n)
@@ -39,6 +41,13 @@ if `x >= 2`
 ## Quick Sort
 
 - 若 pivot 為 max, min => worse case O(n^2)
+- Quick sort 在大資料時，排序最快 (Quick Sort > Merge Sort > Heap Sort)
+- Quick sort produces a binary search tree
+    - How: just iterate through the array and put each element into the tree
+- best case BST => Fully balanced tree
+- $2^(n-1)n!$ => worst case rate
+- 
+
 
 ## Bucket Sort
 

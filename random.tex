@@ -127,6 +127,12 @@ Output: the number of inversions in $A$, i.e. the number of pairs $(i,j)$ of arr
 
 It is useful for recommender systems $\Rightarrow$ fewer inversions means better alignment with user preferences
 
+\subsection*{Quick Select}
+
+Worst case: $ T(n) = T(n-1) + cn \Rightarrow O(n^2)$
+
+Best case: $ T(n) = T(n/2) + cn \Rightarrow O(n)$
+
 \subsection*{Median}
 
 Input: A list of numbers $S$; an integer $k$
@@ -135,9 +141,7 @@ Output: the $k$th smallest element of $S$
 
 \subsubsection{A randomized divide-and-conquer algorithm}
 
-
 \[S_k = \]
-
 
 \subsubsection*{Smart Selection of Pivot}
 
@@ -353,7 +357,6 @@ While T is not yet a spanning tree (|T| <= |V| - 1)
 Return T
 \end{verbatim}
 
-
 Kruskal's Algorithm: sort edges by weight, add edge to $T$ if it doesn't create a cycle
 
 Prim's Algorithm: start at any node, add the lightest edge to $T$ that connects a node in $T$ to a node not in $T$
@@ -378,7 +381,7 @@ Huffman_recur(C, f)
     return T'
 \end{verbatim}
 
-\subsubsection{Proof Greedy Choice Property}
+\subsubsection*{Proof Greedy Choice Property}
 
 Let $x,y$ be the two least frequent tokens of $C$.
 There exists an optimal tree in which $x$ and $y$ are siblings.
@@ -389,7 +392,7 @@ There exists an optimal tree in which $x$ and $y$ are siblings.
 
 \subsubsection*{Proof Corrrectness of Huffman's Algorithm}
 
-\textbf{Proof by induction}
+\textbf{Proof by induction:}
 
 Base case: $n=2$ and 1 bit for each token
 
@@ -401,10 +404,23 @@ Inductive step:
 
 \section*{Linear Programming}
 
-\begin{itemize}
-    \item least squares
-    \item minimize the maximum absolute deviation \(\max_{1\leq i \leq n}{\mid y_i - (ax_i+b) \mid}\)
-\end{itemize}
+A linear programming problem is a problem with a set of variables \(x_1, x_2, \dots, x_n\) that has
+
+\begin{enumerate}
+    \item A linear objective function which can be minimized or maximized \\ 
+            \(\min \text{or} \max c_1x_1+\dots+c_nx_n\)
+    \item A set of linear constraints \(a_{i1}x_1 + a_{i2}x_2 + \dots + a_{in}x_n \leq b_i\) 
+\end{enumerate}
+
+\remark{Linear Programming (LP) and Linear Regression have significant differences in mathematical tools and application objectives, but they may have indirect connections in certain specific contexts.}
+
+\subsection*{Different forms are equivalent}
+
+For example, for the question \(2x \leq 5\), x is unrestricted in sign.
+
+$\Rightarrow 2(x^+ - x^-) \leq 5, x^+ \geq 0,x^- \geq 0$
+
+\includegraphics[width=\textwidth]{./images/lp_turn.png}
 
 \begin{verbatim}
 min -x_1 - x_2
@@ -416,17 +432,130 @@ min -x_1 - x_2
 
 \subsection*{Problem: Maximum Flow}
 
-target: \(\max{f_{sa} + f_{sb} +f_{sc}} = \max{f_{dt} + f_{et}}\)
+target: \(\max{f_{sa} + f_{sb} +f_{sc}} \equiv \max{f_{dt} + f_{et}}\)
+
+\subsection*{Linear Regression Problem Reduces to LP}
+
+\includegraphics[width=\textwidth]{./images/lr_to_lp.png}
+
+To reduce the given problem to a linear programming (LP) problem, follow these steps:
+
+Given Problem:
+We want to minimize the sum of absolute errors:
+
+\[
+\min_{a, b} \sum_{i=1}^{n} |a x_i + b - y_i|
+\]
+
+Step 1: Introduce Auxiliary Variables
+
+Since absolute values are not directly handled in linear programming, introduce auxiliary variables \( t_i \) for each data point:
+
+\[
+t_i \geq |a x_i + b - y_i|, \quad \forall i = 1, 2, \dots, n
+\]
+
+Step 2: Reformulate the Absolute Value Constraint
+
+The absolute value constraint can be rewritten as two linear inequalities:
+
+\[
+- t_i \leq a x_i + b - y_i \leq t_i, \quad \forall i = 1, 2, \dots, n
+\]
+
+Step 3: Formulate the LP Problem
+
+The objective function can now be rewritten as:
+
+\[
+\min_{a, b, t_1, t_2, \dots, t_n} \sum_{i=1}^{n} t_i
+\]
+
+subject to the constraints:
+
+\[
+a x_i + b - y_i \leq t_i, \quad \forall i
+\]
+\[
+a x_i + b - y_i \geq -t_i, \quad \forall i
+\]
+\[
+t_i \geq 0, \quad \forall i
+\]
+
+This formulation is now a linear program since the objective function and constraints are all linear.
+
+Conclusion:
+
+By introducing auxiliary variables \( t_i \), the problem is transformed into a standard LP problem. This LP can be solved using simplex or interior-point methods to find the best-fitting line \( y = ax + b \) that minimizes the sum of absolute errors.
 
 \section*{Reduction}
 
-\subsection{Satisfiability}
+
+
+\subsection*{Satisfiability}
 
 Literal: $x_i$ or $\neg x_i$
 
-Clause: A disjunction of clauses $c-j = x_1 \lor x_2 \lor \neg x_3$
+Clause: A disjunction of clauses $c_j = x_1 \lor x_2 \lor \neg x_3$
 
-CNF $\phi$
+CNF $\phi$: A Boolean formula that is a conjunction of clauses \(\phi = c_1 \land c_2 \land c_3 \land c_4\)
+
+\textbf{SAT}: Given a CNF formula $\phi$, does it have a satisfying truth assignment?
+
+\remark{Satisfying truth assignment: assign true/false to each variable such that the entire formula evaluates to true.}
+
+\subsection*{3-SAT to Independent Set}
+
+\includegraphics[width=\textwidth]{./images/3sat_reduce_to_is.png}
+
+\subsection*{SAT reduces to 3-SAT}
+
+case where $k<3$
+
+\[k = 2, (l_1 \lor l_2) \Rightarrow (l_1 \lor l_2 \lor x) \land (l_1 \lor l_2 \lor \neg x)\]
+\[k = 1, (l_1) \Rightarrow (l_1 \lor x \lor y) \land (l_1 \lor l_2 \lor \neg x)\]
+
+case where $ k>3$
+
+\[ \Rightarrow (l_1 \lor l_2 \lor x_1) \land (\neg x \lor l_3 \lor x_2) \land (\neg x_2 \lor l_4 \lor x_3)\dots\]
+
+if orignally is not satisfiable, new contruct is not satisfiable.
+
+if $l_3 == T$ (statement is satisfiable), just set all free variables after $l_3$ to $F$ and all free variables before $l_3$ to $T$.
+
+\subsection*{3-SAT reduces to Vertex Cover}
+
+3-SAT: A set of clauses, each with exactly 3 literals. Identify whether there exists variables that can be set to true or false such that all clauses are satisfied.
+
+Vertex Cover: Given graph $G$ and integer $k$, does there exist a set of vertices $V'$ such that $|V'| \leq k$ that covers all edges in $G$? 
+
+\section*{Computational Complexity}
+
+\subsection*{Clique}
+
+Certificate: A set of vertices $S \subseteq V$ 
+
+Verification: Check if $|S| = k$ and that every pair of vertices in $S$ is connected by an edge in $E$.
+
+Reduction: $IS \leq_p Clique$
+
+$G = (V, E) \Rightarrow G' = (V, E')$
+
+$E'$ is inverse of $E$.
+
+\subsection*{Hamiltonian Cycle}
+
+Input: A undirected graph $G = (V, E)$
+
+Question: Does there exist a cycle in $G$ that visits each vertex exactly once?
+
+Certificate: A candidate cycle $C$ in $G$
+
+Verification: Check if $C$ is a cycle in $G$ and that it visits each vertex exactly once.
+
+\subsection*{Hamiltonian Cycle-2}
+
 
 
 \end{document}
