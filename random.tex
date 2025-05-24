@@ -12,7 +12,7 @@
 \date{\today}
 
 \newcommand{\remark}[1]{
-    $>$ {\color{blue} #1}
+    {\small $>$ {\color{blue} #1}}
 }
 
 \begin{document}
@@ -125,7 +125,9 @@ Input: an A comtaining numbers $1,2,\dots,n$ in some arbitrary order
 
 Output: the number of inversions in $A$, i.e. the number of pairs $(i,j)$ of array indices with $i < j$ and $A[i] > A[j]$
 
-It is useful for recommender systems $\Rightarrow$ fewer inversions means better alignment with user preferences
+It is useful for recommender systems $\Rightarrow$ fewer inversions means better alignment with user preferences.
+
+
 
 \subsection*{Quick Select}
 
@@ -186,7 +188,9 @@ The main question in dynamic programming always is, what are the subproblems?
 
 \[T(n) \geq 2T(n-2) + c = \Omega(2^{\frac{n}{2}})\]
 
-\subsection*{Applications}
+
+
+\subsection*{Applications of DP}
 
 \begin{itemize}
   \item Unix diff for comparing files
@@ -212,6 +216,8 @@ Instead, we can define $L(i) = $ the maximum subarray sum ending at index $i$.
 
 \subsection*{Knapsack}
 
+\remark{If the input is very sparse so that very few subproblems are solved, then top-down is a lot faster; if the input is very dense so that most subproblems are solved, then bottom-up is slightly faster (due to avoiding the overhead for recursion).}
+
 Q: For max $W$ pounds, there are $n$ items to pick from, of weight $w_1, \dots, w_n$ and dollar value $v_1, \dot, v_n$. 
 What is the most valuable combination of items he can fit into his bag?
 
@@ -229,6 +235,10 @@ E.g., take $W = 10$ and
 \end{table}
 
 \subsubsection*{0-1 knapsack problem}
+
+\remark{go to local convenience store}
+
+\remark{aka. the subset sum problem}
 
 Intuition: Go greedy
 
@@ -273,6 +283,8 @@ Time complexity: $O(nW)$
 \subsubsection*{Unbounded knapsack problem}
 
 \remark{aka. Knapsack with repetition}
+
+\remark{like go to Costco (unlimited supply)}
 
 \[K(w) = \text{maximum value achievable with a knapsack of capacity } w\]
 
@@ -401,6 +413,103 @@ Inductive hypothesis:
 Assume that the algorithm produce an optimal code for all token of $2,\dots,k$
 
 Inductive step:
+
+\section*{Graph}
+
+Sparse vs. Dense
+
+\begin{itemize}
+    \item Sparse: $|E| = \text{degree} \cdot |V| = O(|V|)$
+    \begin{itemize}
+        \item The world is sparsely connected but well connected, which is known as the ``small world phenomenon". 
+    \end{itemize}
+    \item Dense: $|E| = O(|V|^2)$
+    \begin{itemize}
+        \item very small, e.g., family, single round robin tournament
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Directed acyclic graph (DAG)}
+
+\begin{itemize}
+    \item E.g., software dependency, course prerequisite
+    \item Each DAG has at least one \textbf{topological order}.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/scc_dag.png}
+    \caption{SCC DAG}
+    \label{fig:scc_dag}
+\end{figure}
+
+\subsection{Representations}
+
+Adjacency Matrix:
+
+We use a $|V| \times |V|$ matrix $A$ to represent the graph $G = (V, E)$,
+where each $A_{i,j} = 1 \text{ or } c(i, j)$
+
+Notes that:
+
+\begin{itemize}
+    \item the matrix is symmetric for undirected graphs and asymmetric for directed graphs.
+    \item the matrix Representation, using $O(|V|^2)$ space, is not efficient for sparse graphs.
+\end{itemize}
+
+Adjacency List:
+
+\begin{verbatim}
+    0 -> 2 -> 3 -> 5 -> 6
+        ^  \  |   ^  \
+       /    \  v /    \
+     1       > 4       > 7
+
+    adjacency list:    |    adjacency set:
+    0 -> [2]           |    0 -> {2}
+    1 -> [2]           |    1 -> {2}
+    2 -> [3, 4]        |    2 -> {3, 4}
+    3 -> [4, 5]        |    3 -> {4, 5}
+    4 -> [5]           |    4 -> {5}
+    5 -> [6, 7]        |    5 -> {6, 7}
+    6 -> []            |    6 -> {}
+    7 -> []            |    7 -> {}
+\end{verbatim}
+
+\begin{verbatim}
+       5      6
+    A ---> B ---> D
+     \            ^
+      \3        4/
+       ---> C --/
+
+    adjacency list      | adjacency map
+    A -> [(B,5), (C,3)] | A: {B:5, C:3}
+    B -> [(D,6)]        | B: {D:6}
+    C -> [(D,4)]        | C: {D:4}
+    D -> []             | D: {}
+\end{verbatim}
+
+In practice, if you don't need random edge access, 
+you can use adjacency list, otherwise you should use adjacency set (for unweighted graph) or adjacency map (for weighted graph).
+
+\subsection*{Graph Traversal}
+
+BFS:
+
+\begin{itemize}
+    \item Time complexity of BFS is \(O(|V| + |E|)\) because each vertex is visited once and each edge is traversed once.
+    \item BFS is indeed the fastest algorithm for shortest-path on unweighted graphs. For example, for the coins problem (minimum number of coins to make up an amount), BFS would be much faster than Viterbi (or DP)
+    \item Queue $Rightarrow$ Priority Queue aka. Dijkstra's algorithm (for weighted graphs)
+\end{itemize}
+
+DFS:
+
+Time complexity of DFS is \(O(|V| + |E|)\) because each vertex is visited once and each edge is traversed once.
+
+
+
+
 
 \section*{Linear Programming}
 
