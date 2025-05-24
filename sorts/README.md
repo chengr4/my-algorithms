@@ -9,6 +9,14 @@ stateDiagram-v2
     if_state --> others : if n is not limit
 ```
 
+| \ | Devide | Conquer | Combine | $T(n)$ |
+|---|--------|---------|--------| ------|
+| quick sort | O(n) partition | 2X | O(1) |  | head heavy
+| merge sort | O(1) | 2X | O(n) | | tail heavy
+| quick select | O(n) partition | 1X | O(1) | $T(n) = T(n/2) + O(n) = O(n)$
+| binary search | O(1) | 1X | O(1) | $T(n) = T(n/2) + O(1) = O(logn)$
+| tree traversal | O(1) | 2X | O(1) | $T(n) = 2T(n/2) + O(1) = O(n)$
+
 ## Features
 
 1. Quick sort 在大資料時，排序最快 (Quick Sort > Merge Sort > Heap Sort)
@@ -24,19 +32,9 @@ stateDiagram-v2
 > Recusive 深度大於 log(n) 改用 Heap Sort =>
 > 資料小於20筆改用 Insertion Sort
 
-## 
-
 ## Merge Sort
 
-Time complexity:
-
-if `x >= 2`
-
-`$$ T(n) = 2T(n/2) + O(n) $$`
-
-`$$ =>  O(nlogn) $$`
-
-> Find the proof on YT if forgetting how to proof
+[Merge Sort](./merge_sort.md)
 
 ## Quick Sort
 
@@ -45,9 +43,8 @@ if `x >= 2`
 - Quick sort produces a binary search tree
     - How: just iterate through the array and put each element into the tree
 - best case BST => Fully balanced tree
-- $2^(n-1)n!$ => worst case rate
+- $2^(n-1)/n!$ => worst case rate
 - 
-
 
 ## Bucket Sort
 
