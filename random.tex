@@ -6,6 +6,7 @@
 \usepackage{amsthm}
 \usepackage{xcolor}
 \usepackage{tikz} % for plot
+\usepackage{float} % for H float option
 
 \title{Algorithms}
 \author{R4 Cheng}
@@ -206,7 +207,23 @@ The main question in dynamic programming always is, what are the subproblems?
 
 \subsection*{Edit Distance}
 
-\[D(i, j) = \text{the edit distance between} s_1,s_2,\dots,s_i \text{and} t_1,t_2,\dots,t_j\]
+Goal. Given two string $s_1, s_2, \dots, s_i$ and $t_1, t_2, \dots, t_j$, find the minimum number of operations to convert $s$ to $t$.
+
+\[D(i, j) = \text{min cost of aligning prefix strings } s_1,s_2,\dots,s_i \text{and} t_1,t_2,\dots,t_j\]
+
+\subsubsection{Applications}
+
+\begin{itemize}
+    \item Bioinformatics
+    \item spell correction
+    \item machine translation
+    \item speech recognition
+    \item information extraction
+\end{itemize}
+
+\subsubsection*{Hirschberg's Algorithm}
+
+Space complexity: $O(n + m)$
 
 \subsection*{Maximum Subarray}
 
@@ -310,6 +327,15 @@ Q: what is the time complexity for this q?
 TODO: study Longest common subsequence
 
 \subsection*{Longest Common Subsequence}
+
+\subsection*{Viterbi Algorithm}
+
+Find the hidden state from observed state
+
+\begin{itemize}
+    \item Given \(x_1,\dots,x_n\)
+    \item Goal: compute the most likely sequence \(z^* = arg\max_z P(z\mid x)\)
+\end{itemize}
 
 \section*{Greedy Algorithms}
 
@@ -422,28 +448,63 @@ Sparse vs. Dense
     \item Sparse: $|E| = \text{degree} \cdot |V| = O(|V|)$
     \begin{itemize}
         \item The world is sparsely connected but well connected, which is known as the ``small world phenomenon". 
+        \item Directed social networks like Twitter/Instagram might be a bit \textbf{denser} than undirected ones like Facebook (since stars like Leo Messi have tons of followers, i.e., very high in-degree)
     \end{itemize}
-    \item Dense: $|E| = O(|V|^2)$
+    \item Dense: $|E| = \frac{V(V-1)}{2} = O(|V|^2) \quad \text{undirected}$
     \begin{itemize}
         \item very small, e.g., family, single round robin tournament
     \end{itemize}
 \end{itemize}
+
+Connected vs. Disconnected:
+
+\begin{verbatim}
+    undirected graphs:
+        0 -- 1 -- 2 (connected)
+        0 -- 1    2 (disconnected)
+    
+    directed graphs:
+        0 -> 1 -> 2 (weakly connected, since 0 -- 1 -- 2)
+        0 -> 1 -> 2 (strongly connected)
+        ^         /
+         \_______/
+\end{verbatim}
 
 \subsection*{Directed acyclic graph (DAG)}
 
 \begin{itemize}
     \item E.g., software dependency, course prerequisite
     \item Each DAG has at least one \textbf{topological order}.
+    \item DAGs must not be strongly connected, but they can be weakly connected.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/scc_dag.png}
     \caption{SCC DAG}
     \label{fig:scc_dag}
 \end{figure}
 
-\subsection{Representations}
+\subsubsection*{Topological Sort}
+
+\textbf{Def.} A topological order  of a directed graph $G = (V, E)$ is an ordering of its nodes
+as $v_1, v_2, \dots, v_n$ so that for every edge $(v_i, v_j) \in E$, $i < j$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/topological_order.png}
+    \caption{Topological order of a DAG}
+    \label{fig:topological_order}
+\end{figure}
+
+\begin{itemize}
+    \item BFS (Kahn's algorithm): In each round, a node is selected from the current set of nodes with in-degree zero and added to the sorted result.
+    \item DFS and reverse the order
+\end{itemize}
+
+\remark{Kahn's algorithm automatically detects cycles.}
+
+\subsection*{Representations of Graphs}
 
 Adjacency Matrix:
 
@@ -495,20 +556,145 @@ you can use adjacency list, otherwise you should use adjacency set (for unweight
 
 \subsection*{Graph Traversal}
 
-BFS:
+\textbf{BFS:}
 
 \begin{itemize}
     \item Time complexity of BFS is \(O(|V| + |E|)\) because each vertex is visited once and each edge is traversed once.
     \item BFS is indeed the fastest algorithm for shortest-path on unweighted graphs. For example, for the coins problem (minimum number of coins to make up an amount), BFS would be much faster than Viterbi (or DP)
-    \item Queue $Rightarrow$ Priority Queue aka. Dijkstra's algorithm (for weighted graphs)
+    \item Queue $\Rightarrow$ Priority Queue aka. Dijkstra's algorithm (for weighted graphs)
 \end{itemize}
 
-DFS:
+\textbf{DFS:}
 
 Time complexity of DFS is \(O(|V| + |E|)\) because each vertex is visited once and each edge is traversed once.
 
+On undirected graphs, DFS classifies each edge into two classes:
+
+\begin{enumerate}
+    \item tree edge (father-to-son, gray-to-white): discovers a new white node; part of the recursion tree.
+    \item back edge (descent-to-ancestor, gray-to-gray): rediscovers a gray node; detects a cycle.
+\end{enumerate}
+
+On directed graphs, DFS classifies each edge into four classes:
+
+\begin{enumerate}
+    \item tree edge (father-to-son, gray-to-white): discovers a new white node; part of the recursion tree.
+    \item back edge (descendant-to-ancestor, gray-to-gray): rediscovers a gray node. detects a cycle!
+    \item forward edge (ancestor-to-descendant, gray-to-black): rediscovers a black node who is my descendant.
+    \item cross edge (cousin-to-cousin, gray-to-black): rediscovers a black node with no direct ancestry relationship.
+\end{enumerate}
+
+\remark{DFS can detect both undirected amd directed cycles.}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/dfs_directed_class.png}
+    \caption{DFS directed edge classification}
+\end{figure}
+
+\subsection*{Viterbi algorithm for DAG}
+
+Two steps:
+
+\begin{enumerate}
+    \item Get a topological order
+    \item Follow that order, and do either forward or backward updates
+\end{enumerate}
+
+E.g. Backward updates:
+
+\begin{itemize}
+    \item For each incoming edge \((u,v)\) in E
+    \item use \(d(u)\) to update \(d(v)\): \(d(v) \oplus=d(u)\otimes w(u,v)\)
+\end{itemize}
+
+\remark{When we traverse a node through topological order, all its previous nodes have been \textbf{fixed} aka. \(
+d(u)\) is optimal and will not change anymore.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./images/backward_update.png}
+    \caption{Backward update in Viterbi algorithm for DAG}
+\end{figure}
+
+Time complexity: \(O(|V| + |E|)\)
+
+\remark{$V + E$, since every node is visited once and every edge is traversed once.}
+
+\subsubsection*{k-best Viterbi}
+
+For each node $v$, compute its kbest distances from the kbest of each incoming node $u$.
+
+Time complexity: \(O(E + Vk\log d_{max})\), where \(de_{max}\) is the max in-degree
+
+\(\Rightarrow\) if \(k \ll d_{max}\)
+
+\[E + V(d_{max} + k + k\log k)\] (I think)
 
 
+
+\subsection*{Dijkstra's Algorithm}
+
+Goal: Start from the source node \(s\) and find the shortest path to all other nodes in a weighted graph.
+
+Time: \(O((|V| + |E|) \log |V|)\) using a binary heap
+
+\subsection*{RNA Folding}
+
+\begin{itemize}
+    \item Equivalent to the famous context-free parsing problem (in natural language processing or NLP)
+    \item optimal matrix-chain multiplication
+    \item optimal binary search tree
+    \item optimal polygon triangulation (see also polygon triangulation)
+\end{itemize}
+
+Problem: $best(i, j) = $ maximum number of base pairs of subsequence from $i$ to $j$.
+
+\subsubsection*{CKY}
+
+\[
+best(i, j) = \max \left\{
+\begin{array}{l}
+    best(i + 1, j - 1) + 1 \quad \text{$x_i, x_j$ pairable} \\
+    \max_{i \leq k \leq j} best(i, k) + best(k + 1, j) \quad \text{(split)} \\
+\end{array}
+\right.
+\]
+
+Base case:
+
+\[best(i,i) = 0 \quad \text{singleton spans (len 1)}\]
+\[best(i,i-1) = 0 \quad \text{empty spans (len 0)}\]
+
+Time: \(O(n^3)\)\\
+Space: \(O(n^2)\)
+
+\subsubsection*{Nussinov}
+
+\remark{at 1978}
+
+Instead of analysing whether $x_i$ and $x_j$ can form a bast pair, 
+we instead ask whether $x_j$ is paired
+
+\begin{verbatim}
+    xxxxxxxx = xxxxxxx. | xxxx(xxx)
+    i      j   i      j   i   k   j
+\end{verbatim}
+
+\[
+best(i, j) = \max \left\{
+\begin{array}{l}
+    best(i, j - 1) \quad \text{$x_j$ is unpaired} \\
+    \max_{i \leq k \leq j,(\text{$x_k,x_j$ pairable})} best(i, k-1) + best(k + 1, j-1) + 1 \\
+    \quad \text{$x_j$ pairs with $x_k$} \\
+\end{array}
+\right.
+\]
+
+Time: \(O(n^3)\)\\
+Space: \(O(n^2)\)
+
+\subsubsection*{K-best Structures}
 
 
 \section*{Linear Programming}
