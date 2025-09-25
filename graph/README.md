@@ -6,8 +6,6 @@
 
 ## Shortest Path
 
-
-
 ## Dijkstra's Algorithm
 
 - Edsger W. Dijkstra 1959
@@ -30,10 +28,16 @@ Eg.
 JavaScript:
 
 ```javascript
+const ROWS = graph.length;
+const COLS = graph[0].length;
 const visited = new Set();
-// need lib or implementation
 const queue = new Queue();
 const direction = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+let step = 0;
+
+// init
+visited.add(`${startRow},${startCol}`);
+queue.enqueue([startRow, startCol, step]); // Note: saving step in queue can make life easier
 
 while (!queue.isEmpty()) {
   const [currRow, currCol] = queue.dequeue();
@@ -45,7 +49,7 @@ while (!queue.isEmpty()) {
       newRow >= 0 && newRow < ROWS &&
       newCol >= 0 && newCol < COLS &&
       !visited.has(`${newRow},${newCol}`) &&
-      other conditions
+      otherConditions
     ) {
       visited.add(`${newRow},${newCol}`);
       queue.enqueue([newRow, newCol]);
