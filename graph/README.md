@@ -23,9 +23,31 @@ Eg.
 
 ## Breadth First Search (BFS)
 
-- Shortest path without weight
+> Shortest path without weight
 
-JavaScript:
+Python (Consider layers):
+
+```python
+ROWS, COLS = len(graph), len(graph[0])
+visited = set()
+queue = collections.deque()
+direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+while queue:
+    level_size = len(queue)
+    for _ in range(level_size):
+        curr_row, curr_col = queue.popleft()
+        for move_row, move_col in direction:
+            new_row, new_col = curr_row + move_row, curr_col + move_col
+
+            if 0 <= new_row < ROWS and 0 <= new_col < COLS and (new_row, new_col) not in visited and other_conditions:
+
+                visited.add((new_row, new_col))
+                queue.append((new_row, new_col))
+
+```
+
+JavaScript (Do not consider layers):
 
 ```javascript
 const ROWS = graph.length;
