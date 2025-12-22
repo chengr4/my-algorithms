@@ -1,16 +1,16 @@
 # Binary Search
 
 - A search algorithm that finds the position of a target value within **a sorted array**
-- linear search O(n) => better solution O(log(n))
-- two pointers
+- Linear search O(n) => better solution O(log(n))
+- Two pointers
  
 ## Steps
 
 1. Find middle index
-2. move left pointer to M + 1 or right pointer to M - 1
-3. recursive 1-2
+2. Move left pointer to M + 1 or right pointer to M - 1
+3. Recursive 1-2
 
-Eg:
+E.g.:
 
 ```javascript
 // javascript
