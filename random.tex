@@ -211,7 +211,7 @@ Goal. Given two string $s_1, s_2, \dots, s_i$ and $t_1, t_2, \dots, t_j$, find t
 
 \[D(i, j) = \text{min cost of aligning prefix strings } s_1,s_2,\dots,s_i \text{and} t_1,t_2,\dots,t_j\]
 
-\subsubsection{Applications}
+\subsubsection*{Applications}
 
 \begin{itemize}
     \item Bioinformatics
@@ -276,8 +276,10 @@ The answer we seek is $K(W, n)$
 
 Subproblems:
 
-1. Choose the current item: $K(w - w_j, j - 1) + v_j$ \\
-2. Don't choose the current item: $K(w, j - 1)$
+\begin{enumerate}
+    \item Choose the current item: $K(w - w_j, j - 1) + v_j \Rightarrow$ Because this round needs to place $w_j$; the previous space will be $w - w_j$ fill in.
+    \item Do not choose the current item: $K(w, j - 1)$
+\end{enumerate}
 
 \[
 \Rightarrow
