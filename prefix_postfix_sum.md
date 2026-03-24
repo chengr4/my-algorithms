@@ -5,6 +5,13 @@
 - Range query
 - Range modification + retrieve the final state
 
+## Classical Case: Leetcode 560
+
+任何一段連續 subarray nums[i...j] 的總和，其實都可以用兩個 prefix sum 相減來表示：
+
+$$Sum(i, j) = PrefixSum[j] - PrefixSum[i-1]$$
+
+> 當 `curr_sum` (`p[j]`) 放進 hash map ，意思是 `curr_sum == PrefixSum[i-1]` (最不容易理解的其實是 p[j] => p[i-1] 這一步)
 ## train of thought
 
 1. We modify a range of elements
